@@ -3,11 +3,21 @@
  * Created by PhpStorm.
  * User: pauldossantos
  * Date: 08/10/2018
- * Time: 12:57
+ * Time: 19:26
  */
 
-require __DIR__ . '/../Model/ItemManager.php';
+namespace App\Controller;
 
-$items = selectAllItems();
 
-require __DIR__ . '/../View/item.php';
+use App\Model\ItemManager;
+
+class ItemController
+{
+    public function index()
+    {
+        $itemManager = new ItemManager();
+        $items = $itemManager->selectAllItems();
+
+        require __DIR__ . '/../View/item.php';
+    }
+}
