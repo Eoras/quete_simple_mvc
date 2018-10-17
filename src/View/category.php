@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Simple MVC</title>
+    <title>Simple MVC - Categories</title>
 
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="icon" href="/assets/images/favicon.png">
@@ -13,8 +13,8 @@
     <section>
         <h1>Items</h1>
             <ul>
-            <?php foreach ($items as $item) : ?>
-                <li><a href="/item/<?= $item['id'] ?>"><?= $item['title'] ?></a></li>
+            <?php foreach ($categories as $category) : ?>
+                <li><a href="/category/<?= $category['id'] ?>"><?= $category['name'] ?></a></li>
             <?php endforeach ?>
             </ul>
         </section>
