@@ -11,7 +11,7 @@ class CategoryManager
         $pdo = new \PDO(DSN, USER, PASS);
         $query = "SELECT * FROM category";
         $res = $pdo->query($query);
-        return $res->fetchAll();
+        return $res->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function selectOneCategory(int $id) : array
@@ -22,7 +22,7 @@ class CategoryManager
         $statement->bindValue(':id', $id, \PDO::PARAM_INT);
         $statement->execute();
         // contrairement à fetchAll(), fetch() ne renvoie qu'un seul résultat
-        return $statement->fetch();
+        return $statement->fetch(\PDO::FETCH_ASSOC);
     }
 
 }
