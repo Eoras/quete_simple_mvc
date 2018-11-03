@@ -11,10 +11,12 @@
             <a href="/">Back</a>
 
             <div class="mt-3">
-                {{ item.title }} has for id: {{ item.id }}
+                <ul>
+                    <li>id: {{ item.id }}</li>
+                    <li>title: {{ item.title }}</li>
+                    <li><a href="/item/edit/{{ item.id }}">Edit</a></li>
+                </ul>
             </div>
         </div>
     </div>
-
-
 {% endblock %}

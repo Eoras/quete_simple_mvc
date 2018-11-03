@@ -1,28 +1,50 @@
 <?php
 
-namespace App\Model;
-require __DIR__ . '/../../app/db.php';
+namespace Model;
 
-class CategoryManager
+class CategoryManager extends AbstractManager
 {
 
-    public function selectAllCategories(): array
+    const TABLE = 'category';
+
+    public function __construct(\PDO $pdo)
     {
-        $pdo = new \PDO(DSN, USER, PASS);
-        $query = "SELECT * FROM category";
-        $res = $pdo->query($query);
-        return $res->fetchAll(\PDO::FETCH_ASSOC);
+        parent::__construct(self::TABLE, $pdo);
     }
 
-    public function selectOneCategory(int $id) : array
+    public function insert(Category $category): int
     {
-        $pdo = new \PDO(DSN, USER, PASS);
-        $query = "SELECT * FROM category WHERE id = :id";
-        $statement = $pdo->prepare($query);
-        $statement->bindValue(':id', $id, \PDO::PARAM_INT);
-        $statement->execute();
-        // contrairement à fetchAll(), fetch() ne renvoie qu'un seul résultat
-        return $statement->fetch(\PDO::FETCH_ASSOC);
+        $statement = $this->pdo->prepare("INSERT INTO " . self::TABLE . " (`name`) VALUES (:name)");
+        $statement->bindValue('name', $category->getName(), \PDO::PARAM_STR);
+        if ($statement->execute()) {
+            return $this->pdo->lastInsertId();
+        } else {
+            echo "Error during inserting";
+        }
+    }
+
+    public function delete(Category $category)
+    {
+        $q = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id = :id");
+        $q->bindValue(":id", $category->getId(), \PDO::PARAM_INT);
+        if ($q->execute()) {
+            return true;
+        } else {
+            echo "Error during inserting";
+        }
+    }
+
+    public function update(Category $category)
+    {
+        $statement = $this->pdo->prepare("UPDATE " . self::TABLE . " SET `name` = :name WHERE id = :id");
+        $statement->bindValue('name', $category->getName(), \PDO::PARAM_STR);
+        $statement->bindValue('id', $category->getId(), \PDO::PARAM_INT);
+        if ($statement->execute()) {
+            return $this->pdo->lastInsertId();
+        } else {
+            echo "Error during inserting";
+        }
+        return false;
     }
 
 }

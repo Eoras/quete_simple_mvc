@@ -5,12 +5,22 @@
 {% endblock %}
 
 {% block content %}
-<h1>Categories</h1>
+    <h1>Categories</h1>
+    <a href="/category/add">Add</a>
+
     <ul class="list-group">
         {% for category in categories %}
-            <a class="list-group-item" href="/category/{{ category.id }}">
-                {{ category.name }}
-            </a>
+            <li class="list-group-item">
+                <a href="/category/{{ category.id }}">
+                    {{ category.name }}
+                </a>
+                <form onsubmit="return confirm('Are you sur ?');" class="float-right"
+                      action="/category/delete/{{ category.id }}" method="POST">
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        Delete
+                    </button>
+                </form>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

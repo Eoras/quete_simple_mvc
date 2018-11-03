@@ -35,7 +35,7 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         $vars = $routeInfo[2];
         [$class, $method] = $routeInfo[1];
-        $class = '\App\Controller\\' . $class . 'Controller';
+        $class = '\Controller\\' . $class . 'Controller';
         echo call_user_func_array([new $class(), $method], $vars);
         break;
 }
